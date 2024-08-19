@@ -1,13 +1,9 @@
 // Write your JavaScript code here!
 
 
-
-
-
 window.addEventListener("load", function () {
 
     console.log("Window load...");
-
 
 
     let listedPlanets;
@@ -24,7 +20,7 @@ window.addEventListener("load", function () {
 
         // pickPlanet(planets) {};
 
-        let pickedPlanet =  pickPlanet(listedPlanets);
+        let pickedPlanet = pickPlanet(listedPlanets);
         console.log("Picked Planet is... ", pickedPlanet);
 
 
@@ -53,11 +49,15 @@ window.addEventListener("load", function () {
 
         let divFaultyItems = document.getElementById("faultyItems");                        // 'Faulty Items' Div container 
 
-        formSubmission(document, divFaultyItems, pilotNameEntered.value, coPilotNameEntered.value, fuelLevelEntered.value, cargoMassEntered.value)
+        formSubmission(document, divFaultyItems, pilotNameEntered.value, coPilotNameEntered.value, fuelLevelEntered.value, cargoMassEntered.value);
 
-        // Preventing form submission
-        console.log("preventDefault()");
-        event.preventDefault();
+        // let formReturn = formSubmission(document, divFaultyItems, pilotNameEntered.value, coPilotNameEntered.value, fuelLevelEntered.value, cargoMassEntered.value);
+
+        // if (formReturn === "Empty" || formReturn === "OK") {
+            // Preventing form submission
+            console.log("preventDefault()");
+            event.preventDefault();
+        // }
 
     });
 
