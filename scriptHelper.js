@@ -75,10 +75,10 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
 
             console.log(textBoxValues[item], "is not a number");
 
-            document.getElementById("pilotStatus").innerHTML = `Pilot Chris is ready for launch`;
+            document.getElementById("pilotStatus").innerHTML = `Pilot ${textBoxValues.pilotNameEntered} is ready for launch`;
             console.log("Div Pilot List item - Pilot Status", document.getElementById("pilotStatus").innerHTML);
 
-            document.getElementById("copilotStatus").innerHTML = `Co-pilot Bob is ready for launch`;
+            document.getElementById("copilotStatus").innerHTML = `Co-pilot ${textBoxValues.coPilotNameEntered} is ready for launch`;
             console.log("Div Co-Pilot List item - Co-Pilot Status ", document.getElementById("copilotStatus").innerHTML);
 
         }
