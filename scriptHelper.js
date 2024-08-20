@@ -25,7 +25,6 @@ function validateInput(testInput) {
     /* validateInput() should take in a string as a parameter and return "Empty", "Not a Number", or 
     "Is a Number" as appropriate. In scriptHelper.js, you will use validateInput() to complete the formSubmission() function.
     */
-
     console.log("Validating Input...");
 
     if (testInput === "") {
@@ -78,7 +77,8 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
 
     /* If the user submits a fuel level that is too low (less than 10,000 liters), change faultyItems to visible with an updated fuel 
         status stating that there is not enough fuel for the journey. The text of the h2 element, launchStatus, should also change 
-        to “Shuttle not ready for launch” and the color should change to red. */
+        to “Shuttle not ready for launch” and the color should change to red. 
+        Set 'Fuel status' based on check */
 
     if (validateInput(fuelLevel) === "Empty") {
         alert("Value for Fuel is empty. Please fill out all fields before submitting.");
@@ -94,7 +94,7 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
             shuttleFuelStatus = "red";                                                        // Shuttle not ready to launch
         }
         else {
-            /* If the shuttle is ready to launch, change the text of launchStatus to green and display “Shuttle is ready for launch”. */
+            /* If the shuttle is ready to launch, set shuttleFuelStatus to green. */
             document.getElementById("fuelStatus").innerHTML = 'Fuel level high enough for launch';
             shuttleFuelStatus = "green";                                                     // Shuttle ready to launch
         }
@@ -116,7 +116,8 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
             console.log("Cargo Mass Entered by user... if... before setting cargo status", cargoLevel);
 
             /* 3d. Is the header message red and does it read 'Shuttle Not Ready for Launch' when either fuel or cargo are not in range?
-               3e. Is the header message green and does it read 'Shuttle is Ready for Launch' when both fuel and cargo are submitted in range?  */
+               3e. Is the header message green and does it read 'Shuttle is Ready for Launch' when both fuel and cargo are submitted in range?  
+                   Set 'Cargo status' based on check */
 
             document.getElementById("cargoStatus").innerHTML = `Cargo mass too heavy for launch`;
             shuttleCargoStatus = "red";                                                        // Shuttle not ready to launch
@@ -133,18 +134,20 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
 
 
     // If either fuel is low or cargo mass is over limit, then shuttle launch fail.
+    // Checking if either Fuel & Cargo statuses are 'red'
+
     if (shuttleFuelStatus === "red" || shuttleCargoStatus === "red") {
         console.log("Fuel Status(Red)", shuttleFuelStatus, "Cargo Status", shuttleCargoStatus);
         list.style.visibility = 'visible';
         launchStatusHeader.innerHTML = `Shuttle Not Ready for Launch`;                              // H2 Status Header
         launchStatusHeader.style.color = "red";                                                     // Set color of H2 Status Header to red
     }
-    else if (shuttleFuelStatus === "green" && shuttleCargoStatus === "green") {
+    else if (shuttleFuelStatus === "green" && shuttleCargoStatus === "green") {         // Checking if both Fuel & Cargo statuses are 'green'
         console.log("Fuel Status(Green)", shuttleFuelStatus, "Cargo Status", shuttleCargoStatus);
         
         launchStatusHeader.innerHTML = `Shuttle is Ready for Launch`;             // H2 Status Header
-        launchStatusHeader.style.color = "green";                                 // Set color of H2 Status Header to green
-        list.style.visibility = 'visible';
+        launchStatusHeader.style.color = "green";                                 // Set color of launchStatus H2 Status Header to green
+        list.style.visibility = 'visible';                                        // and display “Shuttle is ready for launch”
     }
     
     return "OK";
@@ -160,7 +163,7 @@ async function myFetch() {
         //     return json;
         // });
 
-        return response.json();
+        return response.json();                                                         // returning response.json()
     });
 
     return planetsReturned;
@@ -170,7 +173,7 @@ function pickPlanet(planets) {
     let planet;
     console.log("Planets ... ", planets);
 
-    let randNumber = Math.floor(Math.random() * 6);
+    let randNumber = Math.floor(Math.random() * 6);                               // Generating random number in the range up to 6 for 6 planets
     console.log("Random Number generated is ", randNumber);
 
     planet = planets[randNumber];
