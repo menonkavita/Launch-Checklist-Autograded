@@ -58,21 +58,43 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
 
     if (validateInput(pilot) === "Empty") {
         alert("Value for Pilot is empty. Please fill out all fields before submitting.");
+        list.style.visibility = 'hidden';
+        launchStatusHeader.innerHTML = `Awaiting Information Before Launch`;                         // H2 Status Header    
+        launchStatusHeader.style.color = "black";                                                    // Set color of H2 Status Header to black
         return "Empty";
+    }
+    else if (validateInput(pilot) === "Is a Number") {
+        alert("Please enter correct values for Pilot.");
+        list.style.visibility = 'hidden';
+        launchStatusHeader.innerHTML = `Awaiting Information Before Launch`;                              // H2 Status Header    
+        launchStatusHeader.style.color = "black";                                                    // Set color of H2 Status Header to black
+        return "Is a Number";
     }
     else if (validateInput(pilot) === "Not a Number") {
         document.getElementById("pilotStatus").innerHTML = `Pilot ${pilot} is ready for launch`;
         console.log("Div Pilot List item - Pilot Status", document.getElementById("pilotStatus").innerHTML);
     }
 
+
     if (validateInput(copilot) === "Empty") {
         alert("Value for Co-Pilot is empty. Please fill out all fields before submitting.");
+        list.style.visibility = 'hidden';
+        launchStatusHeader.innerHTML = `Awaiting Information Before Launch`;                              // H2 Status Header    
+        launchStatusHeader.style.color = "black";                                                    // Set color of H2 Status Header to black
         return "Empty";
+    }
+    else if (validateInput(copilot) === "Is a Number") {
+        alert("Please enter correct values for the Co-Pilot.");
+        list.style.visibility = 'hidden';
+        launchStatusHeader.innerHTML = `Awaiting Information Before Launch`;                              // H2 Status Header    
+        launchStatusHeader.style.color = "black";                                                    // Set color of H2 Status Header to black
+        return "Is a Number";
     }
     else if (validateInput(copilot) === "Not a Number") {
         document.getElementById("copilotStatus").innerHTML = `Co-pilot ${copilot} is ready for launch`;
         console.log("Div Co-Pilot List item - Co-Pilot Status ", document.getElementById("copilotStatus").innerHTML);
     }
+
 
 
     /* If the user submits a fuel level that is too low (less than 10,000 liters), change faultyItems to visible with an updated fuel 
@@ -82,7 +104,17 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
 
     if (validateInput(fuelLevel) === "Empty") {
         alert("Value for Fuel is empty. Please fill out all fields before submitting.");
+        list.style.visibility = 'hidden';
+        launchStatusHeader.innerHTML = `Awaiting Information Before Launch`;                              // H2 Status Header    
+        launchStatusHeader.style.color = "black";                                                    // Set color of H2 Status Header to black
         return "Empty";
+    }
+    else if (validateInput(fuelLevel) === "Not a Number") {
+        alert("Please enter a numeric value for Fuel.");
+        list.style.visibility = 'hidden';
+        launchStatusHeader.innerHTML = `Awaiting Information Before Launch`;                              // H2 Status Header    
+        launchStatusHeader.style.color = "black";                                                    // Set color of H2 Status Header to black
+        return "Not a Number";
     }
     else if (validateInput(fuelLevel) === "Is a Number") {
         console.log(fuelLevel, "is a number");
@@ -106,8 +138,18 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
      “Shuttle not ready for launch” and the color should change to red. */
 
     if (validateInput(cargoLevel) === "Empty") {
-        alert("Value for Cargo is empty. Please fill out all fields before submitting.");
+        alert("Value for Cargo Mass is empty. Please fill out all fields before submitting.");
+        list.style.visibility = 'hidden';
+        launchStatusHeader.innerHTML = `Awaiting Information Before Launch`;                              // H2 Status Header    
+        launchStatusHeader.style.color = "black";                                                    // Set color of H2 Status Header to black
         return "Empty";
+    }
+    else if (validateInput(cargoLevel) === "Not a Number") {
+        alert("Please enter a numeric value for Cargo Mass.");
+        list.style.visibility = 'hidden';
+        launchStatusHeader.innerHTML = `Awaiting Information Before Launch`;                              // H2 Status Header   
+        launchStatusHeader.style.color = "black";                                                    // Set color of H2 Status Header to black 
+        return "Not a Number";
     }
     else if (validateInput(cargoLevel) === "Is a Number") {
         console.log(cargoLevel, "is a number");
@@ -122,7 +164,7 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
             document.getElementById("cargoStatus").innerHTML = `Cargo mass too heavy for launch`;
             shuttleCargoStatus = "red";                                                        // Shuttle not ready to launch
         }
-        else if (cargoLevel > 0) {
+        else if (cargoLevel >= 0) {
             /* If the shuttle is ready to launch, change the text of launchStatus to green and display “Shuttle is ready for launch”. */
             document.getElementById("cargoStatus").innerHTML = `Cargo mass low enough for launch`;
             console.log("Cargo Mass Entered by user... else... before setting cargo status", cargoLevel);
