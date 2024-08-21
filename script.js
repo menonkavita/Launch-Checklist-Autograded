@@ -27,7 +27,7 @@ window.addEventListener("load", function () {
         addDestinationInfo(document, pickedPlanet.name, pickedPlanet.diameter, pickedPlanet.star, pickedPlanet.distance, pickedPlanet.moons, pickedPlanet.image);
     })
 
-    
+
     alert("Please enter values for all fields.");                                      // Alert msg to user on window load
 
     let divContainer = document.getElementById("launchForm");
@@ -44,9 +44,15 @@ window.addEventListener("load", function () {
 
 
         let divFaultyItems = document.getElementById("faultyItems");                        // 'Faulty Items' Div container 
+        let launchHeader = document.getElementById("launchStatus");
 
-        formSubmission(document, divFaultyItems, pilotNameEntered.value, coPilotNameEntered.value, fuelLevelEntered.value, cargoMassEntered.value);
+        let validateStatus = formSubmission(document, divFaultyItems, pilotNameEntered.value, coPilotNameEntered.value, fuelLevelEntered.value, cargoMassEntered.value);
 
+        if (validateStatus === "Empty" || validateStatus === "Not a Number" || validateStatus === "Is a Number") {
+            divFaultyItems.style.visibility = 'hidden';
+            launchHeader.innerHTML = `Awaiting Information Before Launch`;                         // H2 Status Header    
+            launchHeader.style.color = "black";                                                    // Set color of H2 Status Header to black
+        }
         // Preventing form submission
         console.log("preventDefault()");
         event.preventDefault();

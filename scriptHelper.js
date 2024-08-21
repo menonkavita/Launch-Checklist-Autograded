@@ -51,23 +51,17 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
     // Checking if textboxes have text in them
     // Validate Input() - returns "Empty", "Not a Number", or "Is a Number" as appropriate.
 
-
     /* The list of shuttle requirements, the div with the id faultyItems, should be updated if something is not ready for launch. 
     Using template literals, update the li elements pilotStatus and copilotStatus to include the pilot’s name and the co-pilot’s name. */
 
 
+    // Validate Pilot Textbox
     if (validateInput(pilot) === "Empty") {
         alert("Value for Pilot is empty. Please fill out all fields before submitting.");
-        list.style.visibility = 'hidden';
-        launchStatusHeader.innerHTML = `Awaiting Information Before Launch`;                         // H2 Status Header    
-        launchStatusHeader.style.color = "black";                                                    // Set color of H2 Status Header to black
         return "Empty";
     }
     else if (validateInput(pilot) === "Is a Number") {
         alert("Please enter correct values for Pilot.");
-        list.style.visibility = 'hidden';
-        launchStatusHeader.innerHTML = `Awaiting Information Before Launch`;                              // H2 Status Header    
-        launchStatusHeader.style.color = "black";                                                    // Set color of H2 Status Header to black
         return "Is a Number";
     }
     else if (validateInput(pilot) === "Not a Number") {
@@ -76,18 +70,13 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
     }
 
 
+    // Validate Co-Pilot Textbox
     if (validateInput(copilot) === "Empty") {
         alert("Value for Co-Pilot is empty. Please fill out all fields before submitting.");
-        list.style.visibility = 'hidden';
-        launchStatusHeader.innerHTML = `Awaiting Information Before Launch`;                              // H2 Status Header    
-        launchStatusHeader.style.color = "black";                                                    // Set color of H2 Status Header to black
         return "Empty";
     }
     else if (validateInput(copilot) === "Is a Number") {
         alert("Please enter correct values for the Co-Pilot.");
-        list.style.visibility = 'hidden';
-        launchStatusHeader.innerHTML = `Awaiting Information Before Launch`;                              // H2 Status Header    
-        launchStatusHeader.style.color = "black";                                                    // Set color of H2 Status Header to black
         return "Is a Number";
     }
     else if (validateInput(copilot) === "Not a Number") {
@@ -102,33 +91,33 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
         to “Shuttle not ready for launch” and the color should change to red. 
         Set 'Fuel status' based on check */
 
+
+    // Validate Fuel Level Textbox
     if (validateInput(fuelLevel) === "Empty") {
         alert("Value for Fuel is empty. Please fill out all fields before submitting.");
-        list.style.visibility = 'hidden';
-        launchStatusHeader.innerHTML = `Awaiting Information Before Launch`;                              // H2 Status Header    
-        launchStatusHeader.style.color = "black";                                                    // Set color of H2 Status Header to black
         return "Empty";
     }
     else if (validateInput(fuelLevel) === "Not a Number") {
         alert("Please enter a numeric value for Fuel.");
-        list.style.visibility = 'hidden';
-        launchStatusHeader.innerHTML = `Awaiting Information Before Launch`;                              // H2 Status Header    
-        launchStatusHeader.style.color = "black";                                                    // Set color of H2 Status Header to black
         return "Not a Number";
     }
     else if (validateInput(fuelLevel) === "Is a Number") {
         console.log(fuelLevel, "is a number");
 
-        if (fuelLevel < 10000) {
+        if (fuelLevel >= 0 && fuelLevel < 10000) {
 
             // If Fuel Level is not in range, innerHTML of h2 should change to 'Shuttle Not Ready for Launch'.
             document.getElementById("fuelStatus").innerHTML = 'Fuel level too low for launch';
             shuttleFuelStatus = "red";                                                        // Shuttle not ready to launch
         }
-        else {
+        else if (fuelLevel >= 10000){
             /* If the shuttle is ready to launch, set shuttleFuelStatus to green. */
             document.getElementById("fuelStatus").innerHTML = 'Fuel level high enough for launch';
             shuttleFuelStatus = "green";                                                     // Shuttle ready to launch
+        }
+        else{
+            alert("Please enter a number above 0 for Fuel.");
+            return "Is a Number";
         }
     }
 
@@ -136,19 +125,15 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
     /*If the user submits a cargo mass that is too large (more than 10,000 kilograms), change the list to visible with an updated 
       cargo status stating that there is too much mass for the shuttle to take off. The text of launchStatus should also change to 
      “Shuttle not ready for launch” and the color should change to red. */
+     
 
+    // Validate Cargo Mass Level Textbox
     if (validateInput(cargoLevel) === "Empty") {
         alert("Value for Cargo Mass is empty. Please fill out all fields before submitting.");
-        list.style.visibility = 'hidden';
-        launchStatusHeader.innerHTML = `Awaiting Information Before Launch`;                              // H2 Status Header    
-        launchStatusHeader.style.color = "black";                                                    // Set color of H2 Status Header to black
         return "Empty";
     }
     else if (validateInput(cargoLevel) === "Not a Number") {
         alert("Please enter a numeric value for Cargo Mass.");
-        list.style.visibility = 'hidden';
-        launchStatusHeader.innerHTML = `Awaiting Information Before Launch`;                              // H2 Status Header   
-        launchStatusHeader.style.color = "black";                                                    // Set color of H2 Status Header to black 
         return "Not a Number";
     }
     else if (validateInput(cargoLevel) === "Is a Number") {
@@ -171,6 +156,10 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
 
             shuttleCargoStatus = "green";                                                       // Shuttle ready to launch
         }
+        else{
+            alert("Please enter a number above 0 for Cargo Mass.");
+            return "Is a Number";
+        }
         console.log("Cargo status... after setting cargo status", shuttleCargoStatus);
     }
 
@@ -192,7 +181,7 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
         list.style.visibility = 'visible';                                        // and display “Shuttle is ready for launch”
     }
     
-    return "OK";
+    return "OK";                                                        // takes back to script.js & preventDefault() to prevent form submission
 } // end of function formSubmission()
 
 
